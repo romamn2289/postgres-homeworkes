@@ -35,3 +35,10 @@ where o.order_id is null;
 
 -- 4. уникальные названия продуктов, которых заказано ровно 10 единиц (количество заказанных единиц см в колонке quantity табл order_details)
 -- Этот запрос написать именно с использованием подзапроса.
+Select distinct p.product_name
+from products p
+where p.product_id in (
+     Select od.product_id
+	 from order_details od
+	 where od.quantity = 10
+);
