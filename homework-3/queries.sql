@@ -15,7 +15,17 @@ and s.company_name = 'United Package'
 -- имя поставщика и его телефон (contact_name и phone в табл suppliers) для таких продуктов,
 -- которые не сняты с продажи (поле discontinued) и которых меньше 25 и которые в категориях Dairy Products и Condiments.
 -- Отсортировать результат по возрастанию количества оставшегося товара.
-
+Select p.product_name,
+	   p.units_in_stock,
+	   s.contact_name,
+	   s.phone
+From products p
+Join suppliers s on p.supplier_id = s.supplier_id
+Join categories cat on p.category_id = cat.category_id
+where p.discontinued = 0
+  and p.units_in_stock < 25 
+  and cat.category_name in ('Dairy Products', 'Condiments')
+Order by p.units_in_stock asc;  
 
 -- 3. Список компаний заказчиков (company_name из табл customers), не сделавших ни одного заказа
 
